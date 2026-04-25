@@ -33,14 +33,14 @@ const BrandsMarquee = () => {
   return (
     <Section
       container={false}
-      className="py-10 bg-white overflow-hidden border-y border-gray-100 px-0"
+      className="py-10 overflow-hidden border-y border-gray-100 px-0"
     >
       <div className="relative flex overflow-hidden">
         {/* Left Blur/Gradient Overlay */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-96 z-10 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-96 z-10 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
 
         {/* Right Blur/Gradient Overlay */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-96 z-10 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-96 z-10 bg-gradient-to-l from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
 
         <motion.div
           animate={{

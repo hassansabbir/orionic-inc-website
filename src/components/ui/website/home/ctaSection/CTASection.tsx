@@ -14,6 +14,7 @@ const CTASection = () => {
           src={ctaBg}
           alt="CTA Background"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />

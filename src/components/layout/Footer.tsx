@@ -78,6 +78,7 @@ const Footer = () => {
           src={footerBg}
           alt="Footer Background"
           fill
+          sizes="100vw"
           className="object-cover object-bottom opacity-50"
           priority
         />

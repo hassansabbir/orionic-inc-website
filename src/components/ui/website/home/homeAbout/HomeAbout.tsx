@@ -44,7 +44,7 @@ const HomeAbout = () => {
           viewport={{ once: true }}
           className="flex justify-center select-none pointer-events-none"
         >
-          <h2 className="text-[13vw] font-bold text-gray-400 whitespace-nowrap leading-none tracking-tighter blur-[1px] md:blur-[2px]">
+          <h2 className="text-[13vw] italic font-bold text-gray-400 whitespace-nowrap leading-none tracking-tighter blur-[1px] md:blur-[2px]">
             Orienco Inc Group
           </h2>
         </motion.div>
