@@ -1,8 +1,11 @@
+import ContactUs from "@/components/ui/website/contact/ContactUs";
 
 const page = () => {
-    return (
-        <div>contact page</div>
-    );
+  return (
+    <div>
+      <ContactUs />
+    </div>
+  );
 };
 
 export default page;

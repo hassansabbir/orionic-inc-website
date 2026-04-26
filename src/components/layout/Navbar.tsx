@@ -13,26 +13,38 @@ import Image from "next/image";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < lastScrollY || currentScrollY < 10) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6",
-        isScrolled ? "bg-background/40 backdrop-blur-md" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 py-2 bg-transparent",
       )}
     >
       <Container>
@@ -59,7 +71,7 @@ export default function Navbar() {
                     "relative text-[15px] font-medium transition-colors hover:text-foreground/80",
                     pathname === item.href
                       ? "text-foreground"
-                      : "text-muted-foreground"
+                      : "text-muted-foreground",
                   )}
                 >
                   {item.label}
@@ -67,7 +79,11 @@ export default function Navbar() {
                     <motion.div
                       layoutId="nav-underline"
                       className="absolute -bottom-1 left-0 right-0 h-[2px] bg-foreground/80 rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </Link>
@@ -82,7 +98,11 @@ export default function Navbar() {
               className="p-2 rounded-xl bg-white shadow-sm border border-border"
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
 
@@ -109,7 +129,7 @@ export default function Navbar() {
                     "text-lg font-medium transition-colors p-3 rounded-xl",
                     pathname === item.href
                       ? "text-foreground bg-accent/50"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent/30"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/30",
                   )}
                 >
                   {item.label}
@@ -119,7 +139,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 }
-

@@ -1,8 +1,11 @@
+import AboutPage from "@/components/ui/website/about/AboutPage";
 
 const page = () => {
-    return (
-        <div>about page</div>
-    );
+  return (
+    <div>
+      <AboutPage />
+    </div>
+  );
 };
 
 export default page;
