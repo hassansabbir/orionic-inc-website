@@ -66,41 +66,57 @@ const ContactUs = () => {
             <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
+                  id="first-name"
                   type="text"
                   placeholder="First Name *"
+                  aria-label="First Name"
                   className="w-full px-6 py-4 rounded-2xl bg-[#F9FAFB] border border-[#F3F4F6] text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-1 focus:ring-[#111827]/5 transition-all font-medium"
                 />
                 <input
+                  id="last-name"
                   type="text"
                   placeholder="Last Name *"
+                  aria-label="Last Name"
                   className="w-full px-6 py-4 rounded-2xl bg-[#F9FAFB] border border-[#F3F4F6] text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-1 focus:ring-[#111827]/5 transition-all font-medium"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
+                  id="email"
                   type="email"
                   placeholder="Email *"
+                  aria-label="Email Address"
                   className="w-full px-6 py-4 rounded-2xl bg-[#F9FAFB] border border-[#F3F4F6] text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-1 focus:ring-[#111827]/5 transition-all font-medium"
                 />
                 <input
+                  id="phone"
                   type="tel"
                   placeholder="Phone Number *"
+                  aria-label="Phone Number"
                   className="w-full px-6 py-4 rounded-2xl bg-[#F9FAFB] border border-[#F3F4F6] text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-1 focus:ring-[#111827]/5 transition-all font-medium"
                 />
               </div>
               <input
+                id="subject"
                 type="text"
                 placeholder="Subject *"
+                aria-label="Subject"
                 className="w-full px-6 py-4 rounded-2xl bg-[#F9FAFB] border border-[#F3F4F6] text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-1 focus:ring-[#111827]/5 transition-all font-medium"
               />
               <textarea
+                id="message"
                 placeholder="Message *"
                 rows={5}
+                aria-label="Your Message"
                 className="w-full px-6 py-5 rounded-2xl bg-[#F9FAFB] border border-[#F3F4F6] text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-1 focus:ring-[#111827]/5 transition-all resize-none font-medium"
               ></textarea>
               
               <div className="pt-2">
-                <button className="px-9 py-4 bg-[#111827] text-white font-bold rounded-xl shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all text-[0.95rem]">
+                <button 
+                  id="contact-submit"
+                  type="submit"
+                  className="px-9 py-4 bg-[#111827] text-white font-bold rounded-xl shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all text-[0.95rem]"
+                >
                   Send Message
                 </button>
               </div>

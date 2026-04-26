@@ -18,27 +18,26 @@ export const footerSections: FooterSection[] = [
     title: 'Company',
     links: [
       { label: 'About Us', href: '/about' },
-      { label: 'Our Team', href: '/team' },
-      { label: 'Careers', href: '/careers' },
+      { label: 'Impact', href: '/about#impact' },
+      { label: 'Brands', href: '/about#brands' },
       { label: 'Contact', href: '/contact' },
     ],
   },
   {
     title: 'Services',
     links: [
-      { label: 'Web Development', href: '/services/web-development' },
-      { label: 'Mobile Apps', href: '/services/mobile-apps' },
-      { label: 'UI/UX Design', href: '/services/design' },
-      { label: 'Consulting', href: '/services/consulting' },
+      { label: 'Luxury Car Rental', href: '#' },
+      { label: 'Rapid Delivery', href: '#' },
+      { label: 'Luxury Apartments', href: '#' },
+      { label: 'Event Management', href: '#' },
     ],
   },
   {
-    title: 'Resources',
+    title: 'Legal',
     links: [
-      { label: 'Blog', href: '/blog' },
-      { label: 'Documentation', href: '/docs' },
-      { label: 'Help Center', href: '/help' },
       { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Cookie Policy', href: '/cookies' },
     ],
   },
 ];

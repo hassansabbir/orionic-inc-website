@@ -1,22 +1,24 @@
 export const siteConfig = {
   name: "Orienco",
-  description: "A modern Next.js template with premium design, built-in utilities, and SEO optimization.",
-  url: "https://your-template-url.com",
-  ogImage: "https://your-template-url.com/og.jpg",
+  description: "Orienco Inc. delivers premium luxury services including exotic car rentals, high-end event management, luxury apartment rentals, and worldwide rapid logistics.",
+  url: "https://orienco.com",
+  ogImage: "/og.jpg",
   links: {
-    twitter: "https://twitter.com/your-handle",
-    github: "https://github.com/your-username/your-repo",
+    twitter: "https://twitter.com/orienco",
+    github: "https://github.com/orienco",
   },
   keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "TypeScript",
-    "Template",
-    "Starter Kit",
-    "Modern Web",
+    "Orienco",
+    "Luxury Services",
+    "Exotic Car Rental",
+    "Luxury Logistics",
+    "Event Management",
+    "Luxury Apartments",
+    "Rapid Delivery",
+    "Concierge Services",
+    "Premium Travel",
   ],
-  author: "Author Name",
+  author: "Orienco Inc.",
 };
 
 export type SiteConfig = typeof siteConfig;
