@@ -25,21 +25,27 @@ export async function SSRFetch<T>({
   errorFallback,
   loadingFallback,
 }: SSRFetchProps<T>) {
+  let data: T;
+  let fetchError: any = null;
+
   try {
-    const data = await apiRequest<T>(endpoint, {
+    data = await apiRequest<T>(endpoint, {
       ...options,
       method,
       body: body ? JSON.stringify(body) : undefined,
     });
-    return <>{children(data)}</>;
   } catch (error) {
+    fetchError = error;
+  }
+
+  if (fetchError) {
     // If a custom error fallback is provided, use it
     if (errorFallback) {
-      return <>{errorFallback(error as any)}</>;
+      return <>{errorFallback(fetchError as any)}</>;
     }
 
-    const apiError = error instanceof ApiError ? error : new ApiError(
-      error instanceof Error ? error.message : "An unexpected error occurred",
+    const apiError = fetchError instanceof ApiError ? fetchError : new ApiError(
+      fetchError instanceof Error ? fetchError.message : "An unexpected error occurred",
       500
     );
 
@@ -70,7 +76,7 @@ export async function SSRFetch<T>({
               {JSON.stringify({
                 status: apiError.status,
                 data: apiError.data,
-                stack: error instanceof Error ? error.stack : undefined
+                stack: fetchError instanceof Error ? fetchError.stack : undefined
               }, null, 2)}
             </pre>
           </div>
@@ -78,4 +84,7 @@ export async function SSRFetch<T>({
       </div>
     );
   }
+
+  return <>{children(data!)}</>;
 }
+

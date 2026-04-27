@@ -28,25 +28,33 @@ export default async function DataFetcher<T>({
   children,
   errorFallback,
 }: DataFetcherProps<T>) {
+  let data: T;
+  let fetchError: any = null;
+
   try {
-    const data = await api.request<T>(endpoint, {
+    data = await api.request<T>(endpoint, {
       method,
       body: body ? JSON.stringify(body) : undefined,
       ...options,
     });
-
-    return <>{children(data)}</>;
   } catch (error) {
-    console.error(`DataFetcher Error [${method} ${endpoint}]:`, error);
+    fetchError = error;
+  }
+
+  if (fetchError) {
+    console.error(`DataFetcher Error [${method} ${endpoint}]:`, fetchError);
     
     if (errorFallback) {
-      return <>{errorFallback(error as Error)}</>;
+      return <>{errorFallback(fetchError as Error)}</>;
     }
 
     return (
       <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
-        Failed to load data: {error instanceof Error ? error.message : "Unknown error"}
+        Failed to load data: {fetchError instanceof Error ? fetchError.message : "Unknown error"}
       </div>
     );
   }
+
+  return <>{children(data!)}</>;
 }
+

@@ -74,7 +74,7 @@ export async function apiRequest<T = any>(
       let errorData;
       try {
         errorData = await response.json();
-      } catch (e) {
+      } catch {
         if (isServer) console.error(`[API Error] Failed to parse error response for ${url}`);
         errorData = { message: response.statusText };
       }

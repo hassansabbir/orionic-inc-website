@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Typography from "@/components/ui/Typography";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +75,7 @@ const companies = [
   },
 ];
 
-const CompanyCard = ({ company, isHovered, onHoverStart, onHoverEnd }: any) => {
+const CompanyCard = ({ company, onHoverStart, onHoverEnd }: any) => {
   return (
     <motion.div
       onMouseEnter={onHoverStart}
@@ -130,7 +130,6 @@ const CompanyTree = () => {
               <CompanyCard
                 key={company.id}
                 company={company}
-                isHovered={hoveredId === company.id}
                 onHoverStart={() => setHoveredId(company.id)}
                 onHoverEnd={() => setHoveredId(null)}
               />
@@ -160,7 +159,6 @@ const CompanyTree = () => {
               <CompanyCard
                 key={company.id}
                 company={company}
-                isHovered={hoveredId === company.id}
                 onHoverStart={() => setHoveredId(company.id)}
                 onHoverEnd={() => setHoveredId(null)}
               />
