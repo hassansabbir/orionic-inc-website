@@ -5,7 +5,7 @@
 
 // Default API configuration
 const API_CONFIG = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || "/api",
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://10.10.7.94:5004/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
@@ -39,8 +39,9 @@ const timeoutPromise = (ms: number) =>
  */
 export async function apiRequest<T = any>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit & { next?: { revalidate?: number | false; tags?: string[] } } = {}
 ): Promise<T> {
+  const isServer = typeof window === "undefined";
   const url = endpoint.startsWith("http")
     ? endpoint
     : `${API_CONFIG.baseUrl}${
@@ -49,13 +50,17 @@ export async function apiRequest<T = any>(
 
   const headers = {
     ...API_CONFIG.headers,
-    ...options.headers,
+    ...(options.headers || {}),
   };
 
-  const config = {
+  const config: RequestInit = {
     ...options,
     headers,
   };
+
+  if (isServer) {
+    console.log(`[API Server Request] ${config.method || "GET"} ${url}`);
+  }
 
   try {
     // Race between fetch and timeout
@@ -70,12 +75,18 @@ export async function apiRequest<T = any>(
       try {
         errorData = await response.json();
       } catch (e) {
-        console.error("Error parsing error response:", e);
+        if (isServer) console.error(`[API Error] Failed to parse error response for ${url}`);
         errorData = { message: response.statusText };
       }
 
+      const errorMessage = errorData.message || errorData.error || "API request failed";
+      
+      if (isServer) {
+        console.error(`[API Error] ${response.status} ${url}: ${errorMessage}`);
+      }
+
       throw new ApiError(
-        errorData.message || "API request failed",
+        errorMessage,
         response.status,
         errorData
       );
@@ -96,10 +107,12 @@ export async function apiRequest<T = any>(
       throw error;
     }
 
-    throw new ApiError(
-      error instanceof Error ? error.message : "Unknown error",
-      500
-    );
+    const message = error instanceof Error ? error.message : "Unknown error";
+    if (isServer) {
+      console.error(`[API Critical Error] ${url}: ${message}`);
+    }
+
+    throw new ApiError(message, 500);
   }
 }
 
