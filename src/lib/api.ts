@@ -5,7 +5,9 @@
 
 // Default API configuration
 const API_CONFIG = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://10.10.7.94:5004/api/v1",
+  baseUrl:
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1` ||
+    "http://10.10.7.94:5004/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
@@ -28,7 +30,7 @@ export class ApiError extends Error {
 // Timeout promise
 const timeoutPromise = (ms: number) =>
   new Promise((_, reject) =>
-    setTimeout(() => reject(new ApiError("Request timeout", 408)), ms)
+    setTimeout(() => reject(new ApiError("Request timeout", 408)), ms),
   );
 
 /**
@@ -39,7 +41,9 @@ const timeoutPromise = (ms: number) =>
  */
 export async function apiRequest<T = any>(
   endpoint: string,
-  options: RequestInit & { next?: { revalidate?: number | false; tags?: string[] } } = {}
+  options: RequestInit & {
+    next?: { revalidate?: number | false; tags?: string[] };
+  } = {},
 ): Promise<T> {
   const isServer = typeof window === "undefined";
   const url = endpoint.startsWith("http")
@@ -48,9 +52,16 @@ export async function apiRequest<T = any>(
         endpoint.startsWith("/") ? endpoint : `/${endpoint}`
       }`;
 
-  const headers = {
+  const headers: Record<string, string> = {
     ...API_CONFIG.headers,
-    ...(options.headers || {}),
+    ...(isServer
+      ? {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          Accept: "application/json, text/plain, */*",
+        }
+      : {}),
+    ...((options.headers as Record<string, string>) || {}),
   };
 
   const config: RequestInit = {
@@ -75,21 +86,21 @@ export async function apiRequest<T = any>(
       try {
         errorData = await response.json();
       } catch {
-        if (isServer) console.error(`[API Error] Failed to parse error response for ${url}`);
+        if (isServer)
+          console.error(
+            `[API Error] Failed to parse error response for ${url}`,
+          );
         errorData = { message: response.statusText };
       }
 
-      const errorMessage = errorData.message || errorData.error || "API request failed";
-      
+      const errorMessage =
+        errorData.message || errorData.error || "API request failed";
+
       if (isServer) {
         console.error(`[API Error] ${response.status} ${url}: ${errorMessage}`);
       }
 
-      throw new ApiError(
-        errorMessage,
-        response.status,
-        errorData
-      );
+      throw new ApiError(errorMessage, response.status, errorData);
     }
 
     // Parse response based on content type
@@ -124,7 +135,7 @@ export async function apiRequest<T = any>(
  */
 export function get<T = any>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   return apiRequest<T>(endpoint, {
     ...options,
@@ -142,7 +153,7 @@ export function get<T = any>(
 export function post<T = any>(
   endpoint: string,
   data?: any,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   return apiRequest<T>(endpoint, {
     ...options,
@@ -161,7 +172,7 @@ export function post<T = any>(
 export function put<T = any>(
   endpoint: string,
   data?: any,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   return apiRequest<T>(endpoint, {
     ...options,
@@ -180,7 +191,7 @@ export function put<T = any>(
 export function patch<T = any>(
   endpoint: string,
   data?: any,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   return apiRequest<T>(endpoint, {
     ...options,
@@ -197,7 +208,7 @@ export function patch<T = any>(
  */
 export function del<T = any>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   return apiRequest<T>(endpoint, {
     ...options,
