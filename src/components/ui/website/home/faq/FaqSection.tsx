@@ -5,6 +5,10 @@ import { SSRFetch } from "@/components/common/SSRFetch";
 import FaqSectionContent from "./FaqSectionContent";
 import { ApiResponse, FAQ } from "@/types";
 
+import { FALLBACK_FAQS } from "@/lib/fallbackData";
+
+import EmptyState from "@/components/common/EmptyState";
+
 const FaqSection = () => {
   return (
     <Section className="py-24 bg-white overflow-hidden">
@@ -33,10 +37,20 @@ const FaqSection = () => {
           </div>
         </div>
 
-        <SSRFetch<ApiResponse<FAQ[]>> endpoint="/faq?platform=parent">
-          {(response) => (
-            <FaqSectionContent faqs={response.data} />
-          )}
+        <SSRFetch<ApiResponse<FAQ[]>>
+          endpoint="/faq?platform=parent"
+          errorFallback={() => <FaqSectionContent faqs={FALLBACK_FAQS} />}
+        >
+          {(response) => 
+            response.data && response.data.length > 0 ? (
+              <FaqSectionContent faqs={response.data} />
+            ) : (
+              <EmptyState 
+                message="No FAQs found" 
+                description="Our team is currently working on compiling the most common questions for this platform." 
+              />
+            )
+          }
         </SSRFetch>
       </Container>
     </Section>

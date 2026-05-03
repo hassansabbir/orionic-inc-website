@@ -97,7 +97,11 @@ export async function apiRequest<T = any>(
         errorData.message || errorData.error || "API request failed";
 
       if (isServer) {
-        console.error(`[API Error] ${response.status} ${url}: ${errorMessage}`);
+        if (response.status === 502) {
+          console.warn(`[API Gateway Error] ${response.status} ${url}: Server temporarily unavailable. Fallback data may be used.`);
+        } else {
+          console.error(`[API Error] ${response.status} ${url}: ${errorMessage}`);
+        }
       }
 
       throw new ApiError(errorMessage, response.status, errorData);

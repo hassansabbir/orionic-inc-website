@@ -6,8 +6,10 @@ import Container from "@/components/ui/Container";
 import { motion, Variants } from "framer-motion";
 
 const HomeAbout = () => {
-  const text1 = "Orienco Inc Group is a modern service group built to simplify how people access premium rentals and lifestyle solutions. From event essentials to luxury vehicles, we bring together curated services under one ";
-  const text2 = "trusted platform focused on quality, reliability, and seamless experiences.";
+  const text1 =
+    "Orienco Inc Group is a modern service group built to simplify how people access premium rentals and lifestyle solutions. From event essentials to luxury vehicles, we bring together curated services under one ";
+  const text2 =
+    "trusted platform focused on quality, reliability, and seamless experiences.";
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -46,9 +48,9 @@ const HomeAbout = () => {
       className="min-h-screen flex flex-col justify-between bg-[#F9F9F9] overflow-hidden relative py-0"
     >
       {/* Subtle depth gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5F5F5]/30 to-[#F0F0F0]/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-[#F5F5F5]/30 to-[#F0F0F0]/50 pointer-events-none" />
 
-      <Container className="relative z-10 pt-[15vh] flex justify-end">
+      <Container className="relative z-10 pt-[5vh] flex justify-end">
         <motion.div
           className="w-full lg:w-[65%] xl:w-[60%]"
           variants={container}

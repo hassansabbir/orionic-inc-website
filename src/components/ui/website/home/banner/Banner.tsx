@@ -6,6 +6,7 @@ import Typography from "@/components/ui/Typography";
 import Section from "@/components/ui/Section";
 import { ArrowUpRight } from "lucide-react";
 import CompanyTree from "./CompanyTree";
+import BannerSlider from "./BannerSlider";
 
 const Banner = () => {
   return (
@@ -26,7 +27,6 @@ const Banner = () => {
             Event Rentals, Luxury Cars, And More.
           </Typography>
         </motion.div>
-
         {/* Subheading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,11 +36,14 @@ const Banner = () => {
         >
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed px-4">
             Orienco Is Built To Simplify How People Plan, Celebrate, And Travel.
-            From Elegant Event Rentals To Luxury Vehicles And Essential Services,
-            We Bring Everything Together In One Trusted Platform Designed For
-            Smooth, Stress-Free Experiences.
+            From Elegant Event Rentals To Luxury Vehicles And Essential
+            Services, We Bring Everything Together In One Trusted Platform
+            Designed For Smooth, Stress-Free Experiences.
           </p>
         </motion.div>
+
+        {/* Image slider */}
+        <BannerSlider />
 
         {/* CTA Button */}
         <motion.div
@@ -57,16 +60,14 @@ const Banner = () => {
             <ArrowUpRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Button>
         </motion.div>
-
         {/* Integrated Company Tree */}
         <CompanyTree />
       </div>
 
       {/* Very subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-7xl aspect-video bg-gradient-to-tr from-primary/5 via-transparent to-blue-500/5 blur-[120px] -z-10 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-7xl aspect-video bg-linear-to-tr from-primary/5 via-transparent to-blue-500/5 blur-[120px] -z-10 pointer-events-none" />
     </Section>
   );
 };
 
 export default Banner;
-
