@@ -5,9 +5,9 @@
 
 // Default API configuration
 const API_CONFIG = {
-  baseUrl:
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1` ||
-    "http://10.10.7.94:5004/api/v1",
+  baseUrl: process.env.NEXT_PUBLIC_API_URL
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
+    : "http://10.10.7.94:5004/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
