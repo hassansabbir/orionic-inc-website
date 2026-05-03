@@ -17,9 +17,9 @@ const FaqSection = () => {
           {/* Header with decorative lines */}
           <div className="flex items-center justify-center w-full gap-4 md:gap-12 mb-6 px-4">
             <div className="flex-1 flex items-center gap-3">
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-gray-100 to-gray-200" />
-              <div className="w-1.5 h-1.5 rounded-full border border-gray-300 bg-white shadow-sm flex-shrink-0" />
-              <div className="w-12 h-[1px] bg-gray-200 flex-shrink-0" />
+              <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-100 to-gray-200" />
+              <div className="w-1.5 h-1.5 rounded-full border border-gray-300 bg-white shadow-sm shrink-0" />
+              <div className="w-12 h-px bg-gray-200 shrink-0" />
             </div>
 
             <Typography
@@ -30,9 +30,9 @@ const FaqSection = () => {
             </Typography>
 
             <div className="flex-1 flex items-center gap-3">
-              <div className="w-12 h-[1px] bg-gray-200 flex-shrink-0" />
-              <div className="w-1.5 h-1.5 rounded-full border border-gray-300 bg-white shadow-sm flex-shrink-0" />
-              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-gray-100 to-gray-200" />
+              <div className="w-12 h-px bg-gray-200 shrink-0" />
+              <div className="w-1.5 h-1.5 rounded-full border border-gray-300 bg-white shadow-sm shrink-0" />
+              <div className="flex-1 h-px bg-linear-to-l from-transparent via-gray-100 to-gray-200" />
             </div>
           </div>
         </div>
@@ -41,13 +41,13 @@ const FaqSection = () => {
           endpoint="/faq?platform=parent"
           errorFallback={() => <FaqSectionContent faqs={FALLBACK_FAQS} />}
         >
-          {(response) => 
+          {(response) =>
             response.data && response.data.length > 0 ? (
               <FaqSectionContent faqs={response.data} />
             ) : (
-              <EmptyState 
-                message="No FAQs found" 
-                description="Our team is currently working on compiling the most common questions for this platform." 
+              <EmptyState
+                message="No FAQs found"
+                description="Our team is currently working on compiling the most common questions for this platform."
               />
             )
           }
